@@ -1,8 +1,12 @@
 kafka:
   topic:
     user-default-topic: user-default-topic
+    user-creation-topic: user-creation-topic
 
 spring:
   kafka:
     bootstrap-servers: localhost:9092
     group-id: ${spring.application.name}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.LongSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
