@@ -1,0 +1,8 @@
+kafka:
+  topic:
+    user-default-topic: user-default-topic
+
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    group-id: ${spring.application.name}
