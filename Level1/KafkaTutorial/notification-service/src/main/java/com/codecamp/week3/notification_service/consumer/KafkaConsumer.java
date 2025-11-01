@@ -1,5 +1,6 @@
 package com.codecamp.week3.notification_service.consumer;
 
+import com.codecamp.week3.notification_service.events.event.UserCreateEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -7,6 +8,11 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class KafkaConsumer {
+
+    @KafkaListener(topics = "user-creation-topic", groupId = "user-service")
+    public void createUserEventListener(UserCreateEvent userCreateEvent){
+        log.info("Event Listener: {}", userCreateEvent);
+    }
 
     @KafkaListener(topics = "user-default-topic", groupId = "user-service")
     public void userTopicListener1(String message){
