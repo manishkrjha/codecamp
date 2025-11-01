@@ -23,7 +23,11 @@ public class UserController {
 
     @PostMapping("/{message}")
     ResponseEntity<String> sendMessage(@PathVariable String message){
-        kafkaTemplate.send(KAFKA_DEFAULT_TOPIC, message);
+
+        for(int i=0;i<10000;i++){
+            String key = ""+i%2;
+            kafkaTemplate.send(KAFKA_DEFAULT_TOPIC, key, message);
+        }
 
         return ResponseEntity.ok("Message sent");
     }
