@@ -1,0 +1,22 @@
+{
+  "name": "UserCreatedEvent",
+  "namespace": "com.codecamp.week3.user_service.kafka.event",
+  "type": "record",
+  "fields": [
+    {
+      "name": "id",
+      "type": "long",
+      "default": 0
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "default": ""
+    },
+    {
+      "name": "email",
+      "type": "string",
+      "default": ""
+    }
+  ]
+}

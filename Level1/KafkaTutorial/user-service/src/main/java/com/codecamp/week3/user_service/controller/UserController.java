@@ -1,7 +1,7 @@
 package com.codecamp.week3.user_service.controller;
 
 import com.codecamp.week3.user_service.dto.UserDto;
-import com.codecamp.week3.user_service.event.UserCreateEvent;
+import com.codecamp.week3.user_service.kafka.event.UserCreatedEvent;
 import com.codecamp.week3.user_service.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final KafkaTemplate<Long, UserCreateEvent> kafkaTemplate;
+    private final KafkaTemplate<Long, UserCreatedEvent> kafkaTemplate;
     private final UserService userService;
     private final ModelMapper modelMapper;
 
@@ -42,7 +42,7 @@ public class UserController {
     ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto){
         UserDto response = userService.createUser(userDto);
 
-        UserCreateEvent userCreateEvent = modelMapper.map(response, UserCreateEvent.class);
+        UserCreatedEvent userCreateEvent = modelMapper.map(response, UserCreatedEvent.class);
 
         kafkaTemplate.send(KAFKA_USER_CREATION_TOPIC, response.getId(), userCreateEvent);
 
